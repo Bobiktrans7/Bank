@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Client clinet = clientRepository.findByUsername(username);
+        Client clinet = clientRepository.findClientBy(username);
         if (username == null) {
             throw new UsernameNotFoundException("No user found with email");
         }
@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 org.springframework.security.core.userdetails.User.builder()
                         .username(clinet.getUsername())
                         .password(clinet.getPassword())
-                        .roles("USER")
+                        .roles(clinet.getRole())
                         .build();
 
         return userDetails;

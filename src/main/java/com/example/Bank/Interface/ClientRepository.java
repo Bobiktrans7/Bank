@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("SELECT u FROM Client u WHERE u.username = :username")
-    Client findByUsername(@Param("username") String username);
+    Client findClientBy(@Param("username") String username);
 }

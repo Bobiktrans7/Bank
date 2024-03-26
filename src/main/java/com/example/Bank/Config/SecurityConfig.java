@@ -14,13 +14,14 @@ public class SecurityConfig {
   //https://reamerx.com/spring-boot-jpa-mysql-spring-security-crud-application/
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-      http
-              .authorizeHttpRequests()
+      http.authorizeHttpRequests()
+              .requestMatchers("/Login").permitAll()
               .anyRequest().authenticated();
-      http
-              .formLogin();
+      http.formLogin()
+              .loginPage("/Login");
 
       return http.build();
+
   }
 
     @SuppressWarnings("deprecation")
