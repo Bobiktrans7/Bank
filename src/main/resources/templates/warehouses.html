@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 200px;
+            padding: 5px;
+        }
+        .form-group button {
+            padding: 5px 10px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<h1>Warehouse Management</h1>
+
+<h2>Create Warehouse</h2>
+<div class="form-group">
+    <label for="warehouseNumber">Warehouse Number:</label>
+    <input type="number" id="warehouseNumber" required>
+    <button onclick="createWarehouse()">Create</button>
+</div>
+<div id="warehouseResult" class="result"></div>
+
+<h2>Create Rack</h2>
+<div class="form-group">
+    <label for="warehouseId">Warehouse ID:</label>
+    <input type="number" id="warehouseId" required>
+    <label for="rackNumber">Rack Number:</label>
+    <input type="number" id="rackNumber" required>
+    <button onclick="createRack()">Create</button>
+</div>
+<div id="rackResult" class="result"></div>
+
+<h2>Create Cell</h2>
+<div class="form-group">
+    <label for="rackId">Rack ID:</label>
+    <input type="number" id="rackId" required>
+    <label for="cellNumber">Cell Number:</label>
+    <input type="number" id="cellNumber" required>
+    <button onclick="createCell()">Create</button>
+</div>
+<div id="cellResult" class="result"></div>
+
+<script>
+    const apiUrl = 'http://localhost:8080/api/warehouses';
+
+    function createWarehouse() {
+        const warehouseNumber = document.getElementById('warehouseNumber').value;
+        const data = { number: warehouseNumber };
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('warehouseResult').innerHTML = `Warehouse created: ${JSON.stringify(data)}`;
+            })
+            .catch(error => {
+                document.getElementById('warehouseResult').innerHTML = `Error: ${error}`;
+            });
+    }
+
+    function createRack() {
+        const warehouseId = document.getElementById('warehouseId').value;
+        const rackNumber = document.getElementById('rackNumber').value;
+        const data = { number: rackNumber };
+
+        fetch(`${apiUrl}/${warehouseId}/racks`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('rackResult').innerHTML = `Rack created: ${JSON.stringify(data)}`;
+            })
+            .catch(error => {
+                document.getElementById('rackResult').innerHTML = `Error: ${error}`;
+            });
+    }
+
+    function createCell() {
+        const rackId = document.getElementById('rackId').value;
+        const cellNumber = document.getElementById('cellNumber').value;
+        const data = { number: cellNumber };
+
+        fetch(`${apiUrl}/racks/${rackId}/cells`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('cellResult').innerHTML = `Cell created: ${JSON.stringify(data)}`;
+            })
+            .catch(error => {
+                document.getElementById('cellResult').innerHTML = `Error: ${error}`;
+            });
+    }
+</script>
+</body>
+</html>
