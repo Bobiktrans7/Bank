@@ -6,13 +6,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ControllerBank {
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index() {
         return "index";
     }
 
     @GetMapping("/login")
     public String login() {
-        return "Login";
+        return "login";
     }
+
+    @GetMapping("/api/warehouses")
+    public String warehouses() {
+        return "warehouses";
+    }
+
+
 }
