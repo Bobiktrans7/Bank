@@ -37,13 +37,19 @@ public class Order {
     @Column
     private LocalDate endDate;
 
-    public Order(String orderNumber, Shelf shelf, Cell cell, LocalDate startDate, LocalDate endDate, String recipient_phone_number) {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private OrderStatus status = OrderStatus.RECEIVED;
+
+    public Order(String orderNumber, Shelf shelf, Cell cell, LocalDate startDate, LocalDate endDate, String recipient_phone_number, OrderStatus status) {
         this.orderNumber = orderNumber;
         this.shelf = shelf;
         this.cell = cell;
         this.startDate = startDate;
         this.endDate = endDate;
         this.recipientPhoneNumber = recipient_phone_number;
+        this.status = status;
+
     }
 
 

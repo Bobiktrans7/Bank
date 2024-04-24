@@ -78,7 +78,7 @@ public class WarehouseService {
             throw new IllegalArgumentException("Order with number " + orderNumber + " already exists.");
         }
 
-        Order order = new Order(orderNumber, shelf, cell, startDate, endDate, recipientPhoneNumber);
+        Order order = new Order(orderNumber, shelf, cell, startDate, endDate, recipientPhoneNumber, OrderStatus.RECEIVED);
         order = orderRepository.save(order); // Сохраняем заказ в базе данных
 
         OperationLog operationLog = new OperationLog(order, "RECEIVED");
