@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Occupancy Report</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #f2f2f2;
+        color: #333;
+        text-align: left;
+    }
+
+    table tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    table tbody tr:nth-child(even) {
+        background-color: #fafafa;
+    }</style>
+</head>
+<body>
+<h1>Warehouse Occupancy Report</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Cell Number (Shelf, Cell)</th>
+        <th>End Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${report}">
+        <td th:text="|${entry.cellNumber} (${entry.shelfNumber}, ${entry.cellNumber})|"></td>
+        <td th:text="${#temporals.format(entry.endDate, 'dd.MM.yyyy')}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

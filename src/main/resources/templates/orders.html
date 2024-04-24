@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список заказов</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding: 50px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    h2 {
+        margin-top: 20px;
+        color: #666;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    thead {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+        background-color: #ddd;
+    }</style>
+</head>
+<body>
+<h1>Список заказов</h1>
+
+<!-- Форма для поиска заказов по номеру телефона получателя -->
+<form th:action="@{/orders}" method="get">
+    <label for="recipientPhoneNumber">Номер телефона получателя:</label>
+    <input type="text" id="recipientPhoneNumber" name="recipientPhoneNumber" required>
+    <button type="submit">Поиск</button>
+</form>
+
+<!-- Таблица для отображения списка заказов -->
+<table>
+    <thead>
+    <tr>
+        <th>Номер заказа</th>
+        <th>Номер телефона получателя</th>
+        <th>Номер полки</th>
+        <th>Номер ячейки</th>
+        <th>Дата начала</th>
+        <th>Дата окончания</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.orderNumber}"></td>
+        <td th:text="${order.recipientPhoneNumber}"></td>
+        <td th:text="${order.shelf.shelfNumber}"></td>
+        <td th:text="${order.cell.cellNumber}"></td>
+        <li th:text="|Order #${order.orderNumber}, Start Date: ${#temporals.format(order.startDate, 'dd.MM.yyyy')}, End Date: ${#temporals.format(order.endDate, 'dd.MM.yyyy')}|">
+        <td th:text="${#dates.format(order.endDate, 'dd.MM.yyyy')}"></td>
+        <td>
+            <form th:action="@{/orders/{orderId}/issue(orderId=${order.id})}" method="post">
+                <button type="submit">Выдать</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -2,23 +2,33 @@ package com.example.Bank.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "cells")
 @Getter
 @Setter
-public class Cell {
+@NoArgsConstructor
+public class Cell{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private int number;
-
+    @Setter
     @ManyToOne
-    @JoinColumn(name = "rack_id", nullable = false)
-    private Rack rack;
+    @JoinColumn(name = "shelf_id", nullable = false)
+    private Shelf shelf;
 
-    // Конструкторы, геттеры и сеттеры
+    @Column(nullable = false)
+    private int cellNumber;
+
+
+    public Cell(Shelf shelf, int cellNumber ) {
+        this.shelf = shelf;
+        this.cellNumber = cellNumber;
+    }
+
+    public void setOrder(Object o) {
+    }
 }

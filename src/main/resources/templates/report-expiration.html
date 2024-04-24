@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
+  h2 {
+    margin-top: 20px;
+    color: #666;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }</style>
+  <title>Operation Report</title>
+</head>
+<body>
+<h1>Operation Report</h1>
+
+<div th:if="${reportDate != null}">
+  <h2 th:text="'Date: ' + ${#temporals.format(reportDate, 'yyyy-MM-dd')}"></h2>
+</div>
+
+<table>
+  <tr>
+    <th>Order Number</th>
+    <th>Operation Type</th>
+    <th>Operation Time</th>
+  </tr>
+  <tr th:each="entry : ${report}">
+    <td th:text="${entry.order.orderNumber}"></td>
+    <td th:text="${entry.operationType}"></td>
+    <td th:text="${#temporals.format(entry.operationTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+  </tr>
+</table>
+</body>
+</html>

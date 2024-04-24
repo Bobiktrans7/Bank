@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Management</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    h2 {
+        margin-top: 20px;
+        color: #666;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        padding: 10px;
+        margin-bottom: 5px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"] {
+        padding: 8px;
+        width: 100%;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .errorMessage {
+        color: red;
+    }</style>
+</head>
+<body>
+<h1>Warehouse Management</h1>
+
+<h2>Shelves</h2>
+<h2>Shelves</h2>
+<ul th:each="shelf : ${shelves}">
+    <li th:text="|Shelf #${shelf.shelfNumber}|">Shelf #1</li>
+    <ul th:each="cell : ${cells}" th:if="${cell.shelf.id == shelf.id}">
+        <li th:text="|Cell #${cell.cellNumber}|">Cell #1</li>
+        <ul th:each="order : ${orders}" th:if="${order.shelf.id == shelf.id && order.cell.id == cell.id}">
+            <li th:text="|Order #${order.orderNumber}, Recipient Phone Number: ${order.recipientPhoneNumber}, Start Date: ${#temporals.format(order.startDate, 'yyyy-MM-dd')}, End Date: ${#temporals.format(order.endDate, 'yyyy-MM-dd')}|">
+                Order #123, Recipient Phone Number: +1234567890, Start Date: 2023-05-01, End Date: 2023-05-30
+            </li>
+        </ul>
+    </ul>
+</ul>
+
+
+<h2>Add Shelf</h2>
+<form th:action="@{/shelves}" method="post">
+    <label for="shelfNumber">Shelf Number:</label>
+    <input type="number" id="shelfNumber" name="shelfNumber" required>
+    <button type="submit">Add Shelf</button>
+</form>
+
+<h2>Add Cell</h2>
+<form th:action="@{/cells}" method="post">
+    <label for="shelfNumberCell">Shelf Number:</label>
+    <input type="number" id="shelfNumberCell" name="shelfNumber" required>
+    <label for="cellNumber">Cell Number:</label>
+    <input type="number" id="cellNumber" name="cellNumber" required>
+    <button type="submit">Add Cell</button>
+</form>
+
+<h2>Add Order</h2>
+<form th:action="@{/orders}" method="post">
+    <label for="orderNumber">Order Number:</label>
+    <input type="text" id="orderNumber" name="orderNumber" required>
+    <label for="recipientPhoneNumber">Recipient Phone Number:</label>
+    <input type="text" id="recipientPhoneNumber" name="recipientPhoneNumber" required>
+    <label for="shelfNumberOrder">Shelf Number:</label>
+    <input type="number" id="shelfNumberOrder" name="shelfNumber" required>
+    <label for="cellNumberOrder">Cell Number:</label>
+    <input type="number" id="cellNumberOrder" name="cellNumber" required>
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required>
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" required>
+    <button type="submit">Add Order</button>
+</form>
+<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
+<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
+
+<h2>Search Orders by Recipient Phone Number</h2>
+<form th:action="@{/orders/recipient}" method="get">
+    <label for="recipientPhoneNumber">Recipient Phone Number:</label>
+    <input type="text" id="recipientPhoneNumber" name="recipientPhoneNumber" required>
+    <button type="submit">Search Orders</button>
+</form>
+
+<h2>Orders by Recipient Phone Number</h2>
+<ul th:each="order : ${orders}">
+    <li th:text="|Order #${order.orderNumber}, Start Date: ${#temporals.format(order.startDate, 'yyyy-MM-dd')}, End Date: ${#temporals.format(order.endDate, 'yyyy-MM-dd')}|">
+        Order #123, Start Date: 2023-05-01, End Date: 2023-05-30
+    </li>
+</ul>
+
+<h2>Pickup Order</h2>
+<form th:action="@{/orders/pickup}" method="post">
+    <label for="orderId">Order ID:</label>
+    <input type="number" id="orderId" name="orderId" required>
+    <button type="submit">Pickup Order</button>
+</form>
+
+<div th:if="${pickedUpOrder}" th:text="|Picked up Order #${pickedUpOrder.orderNumber}|"></div>
+<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
+
+</body>
+</html>

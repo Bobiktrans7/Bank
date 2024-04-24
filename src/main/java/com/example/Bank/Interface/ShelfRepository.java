@@ -1,13 +1,12 @@
 package com.example.Bank.Interface;
 
-import com.example.Bank.Entity.Cell;
 import com.example.Bank.Entity.Shelf;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface CellRepository extends JpaRepository<Cell, Long> {
-    List<Cell> findByShelf(Shelf shelf);
+public interface ShelfRepository extends JpaRepository<Shelf, Long> {
+    Optional<Shelf> findByShelfNumber(int shelfNumber);
 }

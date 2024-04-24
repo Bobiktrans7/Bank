@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding: 50px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    h2 {
+        margin-top: 20px;
+        color: #666;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    thead {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+        background-color: #ddd;
+    }</style>
+    <meta charset="UTF-8">
+    <title>Operation Report</title>
+</head>
+<body>
+<h1>Operation Report</h1>
+
+<h2 th:if="${reportDate}" th:text="'Date: ' + ${#temporals.format(reportDate, 'dd.MM.yyyy')}"></h2>
+<h2 th:if="${startDate && endDate}" th:text="'Period: ' + ${#temporals.format(startDate, 'dd.MM.yyyy')} + ' - ' + ${#temporals.format(endDate, 'dd.MM.yyyy')}"></h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Order Number</th>
+        <th>Operation Type</th>
+        <th>Operation Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${report}">
+        <td th:text="${entry.order.orderNumber}"></td>
+        <td th:text="${entry.operationType}"></td>
+        <td th:text="${#temporals.format(entry.operationTime, 'dd.MM.yyyy HH:mm:ss')}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

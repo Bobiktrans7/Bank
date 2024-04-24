@@ -49,7 +49,7 @@ public class SecurityConfig {
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/api/warehouses", true)// Указать страницу для входа в систему
+                        .defaultSuccessUrl("/", true)// Указать страницу для входа в систему
                         .permitAll()
                 ).userDetailsService(customUserDetailsService);
 
@@ -61,27 +61,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    //.requestMatchers("/register", "/login","/", "/index", "/css/**", "/fonts/**", "/images/**", "/js/**", "/scss/**").permitAll()
-
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-//        return authConfig.getAuthenticationManager();
-//    }
-//
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        return new CustomUserDetailsService();
-//    }
-//
-//
-//    @Bean
-//    public AuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-//        provider.setUserDetailsService(customUserDetailsService);
-////        provider.setPasswordEncoder(passwordEncoder()); // Используем новый бин passwordEncoder
-//        return provider;
-//    }
-
-
 
 }
