@@ -1,11 +1,7 @@
 package com.example.Bank.Service;
 
-import com.example.Bank.Entity.Client;
-import com.example.Bank.Entity.Order;
-import com.example.Bank.Entity.Stuff;
-import com.example.Bank.Interface.ClientRepository;
-import com.example.Bank.Interface.OrderRepository;
-import com.example.Bank.Interface.StuffRepository;
+import com.example.Bank.Entity.*;
+import com.example.Bank.Interface.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,11 +14,17 @@ public class RestService {
     private final ClientRepository clientRepository;
     private final OrderRepository orderRepository;
     private final StuffRepository stuffRepository;
+    private final CellRepository cellRepository;
+    private final ShelfRepository shelfRepository;
+    private final MarkRepository markRepository;
 
-    public RestService(ClientRepository clientRepository, OrderRepository orderRepository, StuffRepository stuffRepository) {
+    public RestService(ClientRepository clientRepository, OrderRepository orderRepository, StuffRepository stuffRepository, CellRepository cellRepository, ShelfRepository shelfRepository, com.example.Bank.Interface.MarkRepository markRepository) {
         this.clientRepository = clientRepository;
         this.orderRepository = orderRepository;
         this.stuffRepository = stuffRepository;
+        this.cellRepository = cellRepository;
+        this.shelfRepository = shelfRepository;
+        this.markRepository = markRepository;
     }
 
     public void updateClientIdTel(String telephone, String idTel) {
@@ -46,10 +48,31 @@ public class RestService {
             Client client = clientOptional.get();
             return orderRepository.findByRecipientPhoneNumber(client.getTelephone());
         } else {
-            // Обработка случая, когда клиент с указанным idTel не найден
+
             return Collections.emptyList();
         }
     }
+
+
+    public List<Cell> getAllCell() {
+        return cellRepository.findAll();
+    }
+
+    public List<Shelf> getAllShell() {
+        return shelfRepository.findAll();
+    }
+
+
+    public List<Stuff> getAllStuff() {
+        return stuffRepository.findAll();
+    }
+
+    public List<Client> getAllUsers() {
+        return clientRepository.findAll();
+    }
+
+    public List<Mark> getAllMark() {    return markRepository.findAll(); }
+
 
     public Stuff updateAssessment(Long id, Integer assessment) {
         Optional<Stuff> stuffOptional = stuffRepository.findById(id);
@@ -97,6 +120,19 @@ public class RestService {
             return clientRepository.save(client);
         }
         return null;
+    }
+
+
+    public void updateClientIdMark(Long id, Long id_wk, Long assessment) {
+        Optional<Mark> clientOptional = markRepository.findById(id);
+        if (clientOptional.isPresent()) {
+            Mark mark = clientOptional.get();
+            mark.setId_stuff(id_wk);
+            mark.setAssessment(assessment);
+            markRepository.save(mark);
+        } else {
+
+        }
     }
 
 

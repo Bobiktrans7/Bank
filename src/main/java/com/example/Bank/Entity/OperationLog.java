@@ -27,6 +27,9 @@ public class OperationLog {
     @Column(name = "operation_time", nullable = false)
     private LocalDateTime operationTime;
 
+    @Column
+    private Long stuf_id;
+
     public OperationLog(Order order, String operationType) {
         this.order = order;
         this.operationType = operationType;

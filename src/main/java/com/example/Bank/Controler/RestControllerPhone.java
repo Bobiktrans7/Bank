@@ -2,10 +2,7 @@ package com.example.Bank.Controler;
 
 import com.example.Bank.Entity.Order;
 import com.example.Bank.Service.RestService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class RestControllerPhone {
         this.orderService = orderService;
     }
 
-    @GetMapping("/by-id-tel")
+    @PostMapping("/by-id-tel")
     public List<Order> getOrdersByIdTel(@RequestParam String idTel) {
         return orderService.getOrdersByIdTel(idTel);
     }

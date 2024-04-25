@@ -126,7 +126,7 @@ public class WarehouseService {
     }
 
 
-
+    public List<OperationLog> getAllOperationLogs() {return operationLogRepository.findAll(); }
     public Order pickupOrder(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Order not found"));

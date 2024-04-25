@@ -2,8 +2,9 @@ package com.example.Bank.Controler;
 
 import com.example.Bank.Entity.Stuff;
 import com.example.Bank.Service.RestService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/stuff")
@@ -12,6 +13,11 @@ public class RestStuff {
 
     public RestStuff(RestService restService) {
         this.restService = restService;
+    }
+
+    @GetMapping("/all-stuff")
+    public List<Stuff> getAllStuff() {
+        return restService.getAllStuff();
     }
 
 

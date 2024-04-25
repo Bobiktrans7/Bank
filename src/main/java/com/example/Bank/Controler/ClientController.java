@@ -5,6 +5,8 @@ import com.example.Bank.Service.RestService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
@@ -13,6 +15,8 @@ public class ClientController {
     public ClientController(RestService clientService) {
         this.clientService = clientService;
     }
+
+
 
     @PostMapping("/send-assessment/{idTel}")
     public ResponseEntity<String> sendAssessmentProposal(@PathVariable String idTel) {
@@ -30,5 +34,9 @@ public class ClientController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/stuff")
+    public List<Client> getAllUser() { return clientService.getAllUsers();
     }
 }

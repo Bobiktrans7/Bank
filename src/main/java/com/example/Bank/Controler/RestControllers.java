@@ -26,6 +26,18 @@ public class RestControllers {
         return ResponseEntity.ok("Client ID_TEL updated successfully");
     }
 
+//    @PostMapping("/update-mark")
+//    public ResponseEntity<Long> updateClientIdMark(@RequestBody Cl request) {
+//        String telephone = request.getTelephone();
+//        String idTel = request.getIdTel();
+//
+//        clientService.updateClientIdTel(telephone, idTel);
+//
+//        return ResponseEntity.ok("Client ID_TEL updated successfully");
+//    }
+
+
+
 
     static class ClientIdTelRequest {
         private String telephone;
@@ -38,6 +50,12 @@ public class RestControllers {
         public String getIdTel() {
             return idTel;
         }
+
+    }
+
+    static class MarkWork {
+        private Long id;
+
 
     }
 
