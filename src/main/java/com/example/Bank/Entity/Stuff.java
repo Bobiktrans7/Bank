@@ -20,9 +20,13 @@ public class Stuff {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "assessment")
+    private Integer assessment;
+
+    @Column(name = "comment")
+    private String comment;
 
 
-
-
-
+    public Stuff(String username, String password, Integer assessment) {
+    }
 }
