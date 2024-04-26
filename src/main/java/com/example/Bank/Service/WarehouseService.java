@@ -6,10 +6,16 @@ import com.example.Bank.Interface.CellRepository;
 import com.example.Bank.Interface.OperationLogRepository;
 import com.example.Bank.Interface.OrderRepository;
 import com.example.Bank.Interface.ShelfRepository;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -83,6 +89,10 @@ public class WarehouseService {
 
         OperationLog operationLog = new OperationLog(order, "RECEIVED");
         operationLogRepository.save(operationLog);
+
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Order Details");
+
 
         return order;
     }

@@ -15,11 +15,6 @@ public class RestStuff {
         this.restService = restService;
     }
 
-    @GetMapping("/all-stuff")
-    public List<Stuff> getAllStuff() {
-        return restService.getAllStuff();
-    }
-
 
     @PostMapping("/{id}/assessment")
     public Stuff updateAssessment(@PathVariable Long id, @RequestBody Integer assessment) {

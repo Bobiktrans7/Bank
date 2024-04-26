@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Expired Orders</title>
+    <style>
+        /* Стили CSS */
+    </style>
+</head>
+<body>
+<h1>Expired Orders</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Order Number</th>
+        <th>Recipient Phone Number</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${expiredOrders}">
+        <td th:text="${order.orderNumber}"></td>
+        <td th:text="${order.recipientPhoneNumber}"></td>
+        <td th:text="${#temporals.format(order.startDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="${#temporals.format(order.endDate, 'yyyy-MM-dd')}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

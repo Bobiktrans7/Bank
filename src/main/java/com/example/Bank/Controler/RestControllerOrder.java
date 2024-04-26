@@ -2,18 +2,24 @@ package com.example.Bank.Controler;
 
 
 import com.example.Bank.Entity.Order;
+import com.example.Bank.Interface.OrderRepository;
 import com.example.Bank.Service.RestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
 public class RestControllerOrder {
     private final RestService orderService;
+    @Autowired
+    private OrderRepository orderRepository;
 
     public RestControllerOrder(RestService orderService) {
         this.orderService = orderService;
@@ -31,4 +37,6 @@ public class RestControllerOrder {
         return ResponseEntity.ok(orders);
     }
 //    http://localhost:8080/api/orders/expiring-storage
+
+
 }

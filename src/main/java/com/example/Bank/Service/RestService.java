@@ -123,17 +123,17 @@ public class RestService {
     }
 
 
-    public void updateClientIdMark(Long id, Long id_wk, Long assessment) {
-        Optional<Mark> clientOptional = markRepository.findById(id);
-        if (clientOptional.isPresent()) {
-            Mark mark = clientOptional.get();
-            mark.setId_stuff(id_wk);
-            mark.setAssessment(assessment);
-            markRepository.save(mark);
-        } else {
-
-        }
-    }
+//    public void updateClientIdMark(Long id, Long id_wk, Long assessment) {
+//        Optional<Mark> clientOptional = markRepository.findById(id);
+//        if (clientOptional.isPresent()) {
+//            Mark mark = clientOptional.get();
+//            mark.setId_stuff(id_wk);
+//            mark.setAssessment(assessment);
+//            markRepository.save(mark);
+//        } else {
+//
+//        }
+//    }
 
 
 
